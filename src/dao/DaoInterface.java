@@ -7,6 +7,13 @@ import model.User;
 public interface DaoInterface {
 
 //CRUD
+    
+    /*
+        C -> create (crear)
+        R -> read (obtener/leer)
+        U -> update (actualizar)
+        D -> delete (eliminar)
+    */
     public void createLeague(League league);
 
     public boolean createUser(User user);

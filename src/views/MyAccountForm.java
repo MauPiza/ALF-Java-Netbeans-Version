@@ -2,14 +2,17 @@ package views;
 
 import common.Common;
 import dao.DaoImpl;
+import javax.swing.JOptionPane;
 import model.User;
+import util.FileCreator;
 
 public class MyAccountForm extends javax.swing.JFrame {
 
-    User user = new User();
     DaoImpl dbService = new DaoImpl();
     Dashboard dashboard = new Dashboard();
+    FileCreator fileCreator = new FileCreator();
     LoginForm loginForm = new LoginForm();
+    User user = new User();
 
     public MyAccountForm() {
         initComponents();
@@ -26,6 +29,8 @@ public class MyAccountForm extends javax.swing.JFrame {
         tipoSangreComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         backToDashboardLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        printLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -55,6 +60,7 @@ public class MyAccountForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administración de Ligas de Fútbol");
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -89,6 +95,35 @@ public class MyAccountForm extends javax.swing.JFrame {
             }
         });
         leftPanel.add(backToDashboardLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(194, 206, 219));
+
+        printLabel.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        printLabel.setForeground(new java.awt.Color(51, 51, 51));
+        printLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        printLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer.png"))); // NOI18N
+        printLabel.setText("Imprimir información");
+        printLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        printLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printLabelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(printLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(printLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        leftPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 170, 50));
 
         getContentPane().add(leftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 500));
 
@@ -316,6 +351,10 @@ public class MyAccountForm extends javax.swing.JFrame {
         dashboard.setVisible(true);
     }//GEN-LAST:event_backToDashboardLabelMouseClicked
 
+    private void printLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printLabelMouseClicked
+        imprimirInformacion();
+    }//GEN-LAST:event_printLabelMouseClicked
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -360,6 +399,7 @@ public class MyAccountForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -370,11 +410,25 @@ public class MyAccountForm extends javax.swing.JFrame {
     private javax.swing.JPanel leftPanel;
     private javax.swing.JTextField nameField;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel printLabel;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JComboBox<String> tipoSangreComboBox;
     private javax.swing.JLabel updateLabel;
     // End of variables declaration//GEN-END:variables
 
+    private void imprimirInformacion(){
+        user.setNombre(nameField.getText());
+        user.setApellidos(apellidosField.getText());
+        user.setEmail(emailField.getText());
+        user.setDireccion(direccionField.getText());
+        user.setN_celular(celularField.getText());
+        user.setF_nacimiento(birthdayField.getText());
+        user.setTipo_sangre(tipoSangreComboBox.getSelectedItem().toString());
+        if (fileCreator.createFile(user)) {
+            JOptionPane.showMessageDialog(null, "Operación exitosa");
+        }
+    }
+    
     private void updateUser() {        
         user.setNombre(nameField.getText());
         user.setApellidos(apellidosField.getText());

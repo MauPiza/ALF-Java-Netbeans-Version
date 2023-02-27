@@ -24,6 +24,7 @@ public class CreateUserForm extends javax.swing.JFrame {
         tipoSangreComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         rolComboBox1 = new javax.swing.JComboBox<>();
+        haveAccountLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -51,6 +52,7 @@ public class CreateUserForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administración de Ligas de Fútbol");
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -87,6 +89,15 @@ public class CreateUserForm extends javax.swing.JFrame {
         rolComboBox1.setBorder(null);
         rolComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         leftPanel.add(rolComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 149, 350, 40));
+
+        haveAccountLabel.setFont(new java.awt.Font("Roboto Slab Medium", 0, 14)); // NOI18N
+        haveAccountLabel.setText("Tengo una cuenta");
+        haveAccountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                haveAccountLabelMouseClicked(evt);
+            }
+        });
+        leftPanel.add(haveAccountLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, -1, -1));
 
         getContentPane().add(leftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 500));
 
@@ -260,6 +271,12 @@ public class CreateUserForm extends javax.swing.JFrame {
         createUser();
     }//GEN-LAST:event_createLabelMouseClicked
 
+    private void haveAccountLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_haveAccountLabelMouseClicked
+        LoginForm loginForm = new LoginForm();
+        this.setVisible(false);
+        loginForm.setVisible(true);
+    }//GEN-LAST:event_haveAccountLabelMouseClicked
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -296,6 +313,7 @@ public class CreateUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel createLabel;
     private javax.swing.JTextField direccionField;
     private javax.swing.JTextField emailField;
+    private javax.swing.JLabel haveAccountLabel;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

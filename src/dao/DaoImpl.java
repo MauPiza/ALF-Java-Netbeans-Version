@@ -1,6 +1,7 @@
 package dao;
 
 import common.Common;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import model.League;
 import model.User;
@@ -124,7 +125,7 @@ public class DaoImpl implements DaoInterface {
         try {
             db.connect();
             StringBuilder query = new StringBuilder();
-            query.append("SELECT rol, nombre, apellidos, correo_electronico, password, direccion, numero_celular, f_nacimiento, tipo_sangre FROM users WHERE id = ")
+            query.append("SELECT * FROM users WHERE id = ")
                     .append(id)
                     .append(";");
             ResultSet rs = (ResultSet) db.execute(query.toString(), false);
@@ -259,7 +260,7 @@ public class DaoImpl implements DaoInterface {
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             System.out.println(db.getError());
         } finally {
             db.disconnect();

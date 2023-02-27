@@ -35,7 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         closeLabel = new javax.swing.JLabel();
         createAccountLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
@@ -208,6 +208,7 @@ public class LoginForm extends javax.swing.JFrame {
         CreateUserForm createUserForm = new CreateUserForm();
         this.setVisible(false);
         createUserForm.setVisible(true);
+        final String URL_ENDPOINT = "";
     }//GEN-LAST:event_createAccountLabelMouseClicked
 
     public static void main(String args[]) {
