@@ -33,7 +33,7 @@ public class DaoImpl implements DaoInterface {
             } else {
                 JOptionPane.showMessageDialog(null, "No se completó la operación");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             System.out.println(db.getError());
         } finally {
             db.disconnect();
