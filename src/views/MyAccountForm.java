@@ -416,20 +416,7 @@ public class MyAccountForm extends javax.swing.JFrame {
     private javax.swing.JLabel updateLabel;
     // End of variables declaration//GEN-END:variables
 
-    private void imprimirInformacion(){
-        user.setNombre(nameField.getText());
-        user.setApellidos(apellidosField.getText());
-        user.setEmail(emailField.getText());
-        user.setDireccion(direccionField.getText());
-        user.setN_celular(celularField.getText());
-        user.setF_nacimiento(birthdayField.getText());
-        user.setTipo_sangre(tipoSangreComboBox.getSelectedItem().toString());
-        if (fileCreator.createFile(user)) {
-            JOptionPane.showMessageDialog(null, "Operación exitosa");
-        }
-    }
-    
-    private void updateUser() {        
+    private User setUserData() {
         user.setNombre(nameField.getText());
         user.setApellidos(apellidosField.getText());
         user.setEmail(emailField.getText());
@@ -438,23 +425,34 @@ public class MyAccountForm extends javax.swing.JFrame {
         user.setN_celular(celularField.getText());
         user.setF_nacimiento(birthdayField.getText());
         user.setTipo_sangre(tipoSangreComboBox.getSelectedItem().toString());
-        dbService.updateUser(Common.userID, user);
-
-        this.setVisible(false);
-        dashboard.setVisible(true);
-
+        return user;
     }
-    
-    private void getUserData(){
+
+    private void imprimirInformacion() {
+        if (fileCreator.createFile(setUserData())) {
+            JOptionPane.showMessageDialog(null, "Operación exitosa");
+            fileCreator.openDirectory();
+        }
+    }
+
+    private void updateUser() {
+        if (setUserData() != null) {
+            dbService.updateUser(Common.userID, setUserData());
+            this.setVisible(false);
+            dashboard.setVisible(true);
+        }
+    }
+
+    private void getUserData() {
         user = dbService.getUserById(Common.userID);
-        switch(user.getTipo_sangre()){
-            case "O +"->
+        switch (user.getTipo_sangre()) {
+            case "O +" ->
                 tipoSangreComboBox.setSelectedIndex(0);
-            case "O -"->
+            case "O -" ->
                 tipoSangreComboBox.setSelectedIndex(1);
-            case "A +"->
+            case "A +" ->
                 tipoSangreComboBox.setSelectedIndex(2);
-            case "A -"->
+            case "A -" ->
                 tipoSangreComboBox.setSelectedIndex(3);
         }
         nameField.setText(user.getNombre());
